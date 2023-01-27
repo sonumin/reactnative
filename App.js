@@ -8,7 +8,7 @@ export default function App() {
   return (
   // <MainContainer/>
   <NavigationContainer>
-    <TabStackScreen/>ddd
+    <TabStackScreen/>
   </NavigationContainer>
   );
 }

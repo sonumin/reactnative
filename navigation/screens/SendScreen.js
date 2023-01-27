@@ -11,9 +11,7 @@ const SendScreen=()=>{
         <Button onPress={adv} title='dddddd'></Button>     
       </View>
       <View style={styles.foodContainer}>
-        {/* <TextInput style={styles.input}
-        onChangeText={onChangeText}
-        value={text}/> */}
+        
       </View>
     </View>
   )
