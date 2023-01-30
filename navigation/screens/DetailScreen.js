@@ -120,8 +120,8 @@ const DetailScreen=({navigation})=>{
           <View>
             <TextInput style={styles.textBox}key={i}>
               <Text style={styles.ddd}>id: {food[i].id}</Text>
-              <Text style={styles.ddd}>name: {food[i].name}</Text>
-              <Text style={styles.ddd}>양: {food[i].amount}</Text>
+              <Text style={styles.ddd}>       name: {food[i].name}</Text>
+              <Text style={styles.ddd}>            양: {food[i].amount}</Text>
               </TextInput>
           </View>)
         }
