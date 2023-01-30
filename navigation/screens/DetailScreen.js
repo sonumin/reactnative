@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import {ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,TextInput} from 'react-native';
+import {LogBox,ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,TextInput} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 
 
-
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 const DetailScreen=({navigation})=>{
     const [pickedImagePath, setPickedImagePath] = useState('');
     const [food, setFood] = useState();
@@ -29,6 +30,8 @@ const DetailScreen=({navigation})=>{
       console.log(result);
   
       if (!result.canceled) {
+              setFoodCnt(0)
+      setVisible(false)
         setPickedImagePath(result.assets[0].uri);
         console.log(result.assets[0].uri);
       }
@@ -50,6 +53,8 @@ const DetailScreen=({navigation})=>{
       console.log(result);
   
       if (!result.canceled) {
+        setFoodCnt(0)
+        setVisible(false)
         setPickedImagePath(result.assets[0].uri);
         console.log(result.assets[0].uri);
       }
@@ -90,6 +95,7 @@ const DetailScreen=({navigation})=>{
           // console.log(res.data[1])
           var da = res.data.map(function(item){
             return {
+              id : item.id,
               name: item.name,
               amount: item.amount
             }
@@ -110,7 +116,14 @@ const DetailScreen=({navigation})=>{
       const result = [];
       if(visible){
         for (let i = 0; i < foodCnt; i++){
-          result.push(<TextInput style={styles.textBox}key={i}>{food[i].name} {food[i].amount}</TextInput>)
+          result.push(
+          <View>
+            <TextInput style={styles.textBox}key={i}>
+              <Text style={styles.ddd}>id: {food[i].id}</Text>
+              <Text style={styles.ddd}>name: {food[i].name}</Text>
+              <Text style={styles.ddd}>양: {food[i].amount}</Text>
+              </TextInput>
+          </View>)
         }
       }
       return result
@@ -121,7 +134,7 @@ const DetailScreen=({navigation})=>{
         <View style={styles.imageContainer} >
           {
             pickedImagePath && <Image source={{ uri: pickedImagePath }}
-            style={{width:'90%',height:"90%",borderRadius:10}} /> 
+            style={styles.imageBox} /> 
           }
         </View>
         <View style={styles.lableContainer}>
@@ -199,9 +212,16 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       padding: 10,
       marginBottom: '2%',
-      marginLeft:'10%'
-      
-    }
+      marginLeft:'10%',
+      justifyContent: 'center',
+    },
+    imageBox:{
+      width:'90%',
+      height:"90%",
+      borderRadius:10,
+      resizeMode : 'contain'
+    },
+
     // image: {
     //   width: 400,
     //   height: 300,
