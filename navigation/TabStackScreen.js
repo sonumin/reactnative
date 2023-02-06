@@ -14,13 +14,13 @@ const TabStack = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
 const SettingStack = createStackNavigator();
-const HomeName = 'homeStack';
-const detailName = 'detailStack';
-const SettingName = 'settingStack';
+const HomeName = '메인화면';
+const detailName = '사진';
+const SettingName = '내정보';
 const HomeStackScreen= ()=>{
     return(
         <HomeStack.Navigator>
-            <HomeStack.Screen name='Home' component={HomeScreen} options={{title:"홈"}}/>
+            <HomeStack.Screen name='Home' component={HomeScreen} options={{headerShown:false}}/>
         </HomeStack.Navigator>
     );
 };
@@ -56,7 +56,7 @@ const SettingStackScreen= ()=>{
             if(rn==HomeName){
                 iconName = focused ? 'home' : 'home-outline';
             }else if(rn ==detailName){
-                iconName = focused ? 'add' : 'add-outline';
+                iconName = focused ? 'camera' : 'camera-outline';
             }else if(rn ==SettingName){
                 iconName = focused ? 'happy' : 'happy-outline';
             }

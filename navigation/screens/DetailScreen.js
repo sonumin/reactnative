@@ -137,7 +137,7 @@ const DetailScreen=({navigation})=>{
             style={styles.imageBox} /> 
           }
         </View>
-        <View style={styles.lableContainer}>
+        <View style={styles.labelContainer}>
             {visible && <View>
             {showFoodList()}
           </View>}
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
       elevation: 3,
       backgroundColor: '#000000',
   },
-  lableContainer: {
+  labelContainer: {
       width: '100%',
       height:"35%",
   },
@@ -213,7 +213,6 @@ const styles = StyleSheet.create({
       padding: 10,
       marginBottom: '2%',
       marginLeft:'10%',
-      justifyContent: 'center',
     },
     imageBox:{
       width:'90%',
