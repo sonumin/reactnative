@@ -12,6 +12,8 @@ const DetailScreen=({navigation})=>{
     const [food, setFood] = useState();
     const [foodCnt, setFoodCnt] = useState(0);
     const [visible, setVisible] = useState(false);
+    let [jData, setjData] = useState('');
+    const [todayCal,settodayCal] = useState('');
     const data = new FormData();
     data.append('file', pickedImagePath);
     // This function is triggered when the "Select an image" button pressed
@@ -100,6 +102,7 @@ const DetailScreen=({navigation})=>{
               amount: item.amount
             }
           })
+          setjData(res.data)
           da = da.filter((f) => f.name !== undefined)
           setPickedImagePath(`data:image/jpeg;base64,${res.data[0].image_data}`)
           setFoodCnt(res.data.length - 1)
@@ -128,6 +131,28 @@ const DetailScreen=({navigation})=>{
       }
       return result
     }
+    const sendText = async () => {
+      // const tt = new FormData();
+
+      // tt.append('jsonData',JSON.stringify(jData))
+      // console.log(tt)
+      // console.log(typeof(tt))
+      await axios
+        .post('http://121.174.150.180:50001/save',JSON.stringify(jData),{
+          headers: {
+            'content-type': 'application/json',
+          },
+          responseType: 'json'
+        })
+        .then((res) => {
+          
+        })
+  
+        .catch((err) => {
+          console.log('에러...');
+          console.error(err);
+        });
+    };
     return(
         <View style={styles.screen}>
   
@@ -150,7 +175,7 @@ const DetailScreen=({navigation})=>{
             {/* <Text style={styles.text}>앙 업로드</Text> */}
             <Icon name="send" size={24} color="#ffffff" />
           </Pressable>
-          <Pressable style={styles.button} onPress={postImage}>
+          <Pressable style={styles.button} onPress={sendText}>
             {/* <Text style={styles.text}>앙 업로드</Text> */}
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
@@ -218,7 +243,8 @@ const styles = StyleSheet.create({
       width:'90%',
       height:"90%",
       borderRadius:10,
-      resizeMode : 'contain'
+      resizeMode : 'contain',
+      backgroundColor: 'grey'
     },
 
     // image: {
