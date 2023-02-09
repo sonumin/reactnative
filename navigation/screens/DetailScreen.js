@@ -3,22 +3,30 @@ import {LogBox,ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,T
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
-const DetailScreen=({navigation})=>{
-
+const DetailScreen=()=>{
+    const navigation = useNavigation();
     const [pickedImagePath, setPickedImagePath] = useState('');
     const [food, setFood] = useState();
     const [foodCnt, setFoodCnt] = useState(0);
     const [visible, setVisible] = useState(false);
     let [jData, setjData] = useState('');
     const [todayCal,settodayCal] = useState('');
+    const [carbo,setcarbo] = useState(0);
+    const [date,setdate] = useState(0);
+    const [kacl, setkacl] = useState(0);
+    const [protein,setprotein] = useState(0);
+    const [province,setprovince] = useState(0);
+    const a = new FormData();
     const data = new FormData();
     data.append('file', pickedImagePath);
     const save = 1;
-
+    console.log(save)
 
     // This function is triggered when the "Select an image" button pressed
     const showImagePicker = async () => {
@@ -145,8 +153,11 @@ const DetailScreen=({navigation})=>{
           responseType: 'json'
         })
         .then((res) => {
-          console.log(res.data)
-          settodayCal(save);
+          settodayCal(res.data);
+          for(let i =0;i<7;i++){
+            a.append(res.data[i].carbo)
+          }
+          console.log(a)
         })
   
         .catch((err) => {
@@ -156,12 +167,10 @@ const DetailScreen=({navigation})=>{
         
     };
      navigateToScreen=()=>{
- 
-      navigation.navigate('메인화면', {
-        studentID: 11,
-        studentName: 'Pankaj',
-        studentClass: 'M.C.A'
-      });
+      navigation.navigate('Home', 
+      {
+        a:{todayCal}   
+      })
     }
     return(
         <View style={styles.screen}>
@@ -182,11 +191,10 @@ const DetailScreen=({navigation})=>{
             <Icon name="camera" size={24} color="#ffffff"> or <Icon name="copy" size={24} color="#ffffff" /></Icon>             
           </Pressable>
           <Pressable style={styles.button} onPress={postImage}>
-            {/* <Text style={styles.text}>앙 업로드</Text> */}
             <Icon name="send" size={24} color="#ffffff" />
           </Pressable>
           <Pressable style={styles.button} onPress={()=>{sendText(),navigateToScreen()}}>
-            {/* <Text style={styles.text}>앙 업로드</Text> */}
+            
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
         </View>

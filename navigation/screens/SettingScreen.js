@@ -5,19 +5,19 @@ const Picture = () => {
   return(
     <View  style={styles.imageContainer}>
         <View  style={styles.imageRow}>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
         </View>
         <View style={styles.imageRow}>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
         </View>
         <View style={styles.imageRow}>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('C:/Users/82106/Desktop/native/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
         </View>
     </View>
   );

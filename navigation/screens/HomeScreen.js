@@ -1,8 +1,12 @@
 import * as React from 'react';
-import {View,Dimensions,Text,StyleSheet} from 'react-native';
+import {View,Dimensions,Text,StyleSheet, Button} from 'react-native';
 import VerticalBarGraph from '@chartiful/react-native-vertical-bar-graph';
+import { useRoute } from '@react-navigation/native';
+import  { useState } from 'react';
 
-const HomeScreen= ({route,navigation})=>{
+const HomeScreen= ()=>{
+    const route = useRoute();
+    const [carbo,setcarbo] = useState('')
     return(
         <View style ={styles.screen}>
             <View style ={styles.proContainer}>                                           
@@ -14,6 +18,7 @@ const HomeScreen= ({route,navigation})=>{
 
                 <View style={styles.threeProg}>
                     <View style={styles.fat}>
+                        <Button title={'dddd'}onPress={()=>{console.log(route.params.a.todayCal[0].date)}}>ddd</Button>
                     </View>
                     <View style={styles.fat}>
                     </View>
@@ -24,7 +29,7 @@ const HomeScreen= ({route,navigation})=>{
             </View>
             <View style={styles.graphContainer}>
                 <VerticalBarGraph
-                        data={[20, 45, 28, 80, 99, 43, 113]}
+                        data={[22, 45, 28, 80, 300, 43, 113]}
                         labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']}
                         width={Dimensions.get('window').width - 30}
                         height={200}
