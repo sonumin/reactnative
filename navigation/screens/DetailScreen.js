@@ -8,6 +8,7 @@ import axios from 'axios';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 const DetailScreen=({navigation})=>{
+
     const [pickedImagePath, setPickedImagePath] = useState('');
     const [food, setFood] = useState();
     const [foodCnt, setFoodCnt] = useState(0);
@@ -16,6 +17,9 @@ const DetailScreen=({navigation})=>{
     const [todayCal,settodayCal] = useState('');
     const data = new FormData();
     data.append('file', pickedImagePath);
+    const save = 1;
+
+
     // This function is triggered when the "Select an image" button pressed
     const showImagePicker = async () => {
       // Ask the user for the permission to access the media library 
@@ -132,11 +136,7 @@ const DetailScreen=({navigation})=>{
       return result
     }
     const sendText = async () => {
-      // const tt = new FormData();
 
-      // tt.append('jsonData',JSON.stringify(jData))
-      // console.log(tt)
-      // console.log(typeof(tt))
       await axios
         .post('http://121.174.150.180:50001/save',JSON.stringify(jData),{
           headers: {
@@ -145,14 +145,24 @@ const DetailScreen=({navigation})=>{
           responseType: 'json'
         })
         .then((res) => {
-          
+          console.log(res.data)
+          settodayCal(save);
         })
   
         .catch((err) => {
           console.log('에러...');
           console.error(err);
         });
+        
     };
+     navigateToScreen=()=>{
+ 
+      navigation.navigate('메인화면', {
+        studentID: 11,
+        studentName: 'Pankaj',
+        studentClass: 'M.C.A'
+      });
+    }
     return(
         <View style={styles.screen}>
   
@@ -175,7 +185,7 @@ const DetailScreen=({navigation})=>{
             {/* <Text style={styles.text}>앙 업로드</Text> */}
             <Icon name="send" size={24} color="#ffffff" />
           </Pressable>
-          <Pressable style={styles.button} onPress={sendText}>
+          <Pressable style={styles.button} onPress={()=>{sendText(),navigateToScreen()}}>
             {/* <Text style={styles.text}>앙 업로드</Text> */}
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
@@ -183,6 +193,7 @@ const DetailScreen=({navigation})=>{
 
       </View>
     );
+    
 }
 const styles = StyleSheet.create({
    button: {

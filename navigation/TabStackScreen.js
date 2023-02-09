@@ -2,7 +2,6 @@ import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { createStackNavigator } from "@react-navigation/stack"
 import HomeScreen from "./screens/HomeScreen";
-import SendScreen from "./screens/SendScreen";
 import DetailScreen from "./screens/DetailScreen";
 import SettingScreen from "./screens/SettingScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -29,7 +28,6 @@ const DetailStackScreen= ()=>{
     return(
         <DetailStack.Navigator>
             <DetailStack.Screen name='Detail' component={DetailScreen}options={{headerShown:false}} />
-            <DetailStack.Screen name="Send" component={SendScreen}options={{headerShown:false}}/>
         </DetailStack.Navigator>
     );
 };

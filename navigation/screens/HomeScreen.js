@@ -2,7 +2,7 @@ import * as React from 'react';
 import {View,Dimensions,Text,StyleSheet} from 'react-native';
 import VerticalBarGraph from '@chartiful/react-native-vertical-bar-graph';
 
-const HomeScreen= ()=>{
+const HomeScreen= ({route,navigation})=>{
     return(
         <View style ={styles.screen}>
             <View style ={styles.proContainer}>                                           
