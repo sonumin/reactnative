@@ -6,7 +6,6 @@ import  { useState } from 'react';
 
 const HomeScreen= ()=>{
     const route = useRoute();
-    const [carbo,setcarbo] = useState('')
     return(
         <View style ={styles.screen}>
             <View style ={styles.proContainer}>                                           
@@ -18,7 +17,7 @@ const HomeScreen= ()=>{
 
                 <View style={styles.threeProg}>
                     <View style={styles.fat}>
-                        <Button title={'dddd'}onPress={()=>{console.log(route.params.a.todayCal[0].date)}}>ddd</Button>
+                        <Button title={'dddd'}onPress={()=>{console.log(route.params.a.homeData[0])}}>ddd</Button>
                     </View>
                     <View style={styles.fat}>
                     </View>
@@ -29,8 +28,8 @@ const HomeScreen= ()=>{
             </View>
             <View style={styles.graphContainer}>
                 <VerticalBarGraph
-                        data={[22, 45, 28, 80, 300, 43, 113]}
-                        labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']}
+                        data={(route.params.a.homeData[1])}
+                        labels={(route.params.a.homeData[0])}
                         width={Dimensions.get('window').width - 30}
                         height={200}
                         barRadius={5}
@@ -40,7 +39,7 @@ const HomeScreen= ()=>{
                             hasXAxisBackgroundLines: false,
                             xAxisLabelStyle: {
                             position: 'right',
-                            prefix: '$'
+                            // prefix: 'k'
                             }
                         }}
                         style={{
@@ -50,7 +49,7 @@ const HomeScreen= ()=>{
                             paddingTop: 20,
                             borderRadius: 20,
                             backgroundColor: `#dff4d7`,
-                            width: Dimensions.get('window').width - 20
+                            width: Dimensions.get('window').width - 10
                             }}
                             />
             </View>

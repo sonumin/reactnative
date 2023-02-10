@@ -16,13 +16,8 @@ const DetailScreen=()=>{
     const [foodCnt, setFoodCnt] = useState(0);
     const [visible, setVisible] = useState(false);
     let [jData, setjData] = useState('');
-    const [todayCal,settodayCal] = useState('');
-    const [carbo,setcarbo] = useState(0);
-    const [date,setdate] = useState(0);
-    const [kacl, setkacl] = useState(0);
-    const [protein,setprotein] = useState(0);
-    const [province,setprovince] = useState(0);
-    const a = new FormData();
+    const [homeData,sethomeData] = useState('');
+    var homedat = [[],[],[],[],[]];
     const data = new FormData();
     data.append('file', pickedImagePath);
     const save = 1;
@@ -153,11 +148,16 @@ const DetailScreen=()=>{
           responseType: 'json'
         })
         .then((res) => {
-          settodayCal(res.data);
-          for(let i =0;i<7;i++){
-            a.append(res.data[i].carbo)
+          console.log(res.data)
+          for(let i =0;i<res.data.length;i++){
+            homedat[0][i]=res.data[i].date.substring(5,)
+            homedat[1][i]=res.data[i].kacl
+            homedat[2][i]=res.data[i].carbo
+            homedat[3][i]=res.data[i].protein
+            homedat[4][i]=res.data[i].province
           }
-          console.log(a)
+          sethomeData(homedat);          
+          console.log(homeData);
         })
   
         .catch((err) => {
@@ -169,7 +169,7 @@ const DetailScreen=()=>{
      navigateToScreen=()=>{
       navigation.navigate('Home', 
       {
-        a:{todayCal}   
+        a:{homeData}   
       })
     }
     return(

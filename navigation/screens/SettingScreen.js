@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     imageContainer:{
       width: '100%',
       height:'45%',
-      backgroundColor:'red'
+
     },
     texta:{
       width:'100%',
@@ -68,16 +68,15 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         flexDirection: 'row',
-        backgroundColor:'red'
     },
     imageBox:{
       width: '30%',
       height:'90%',
-      backgroundColor: 'aqua',
       marginRight:'1%',
       marginTop:'1%',
       marginBottom:'1%',
-      marginLeft:'1%'
+      marginLeft:'1%',
+      borderRadius:5
     }
 })
 export default SettingScreen;
