@@ -3,10 +3,19 @@ import {View,Dimensions,Text,StyleSheet, Button} from 'react-native';
 import VerticalBarGraph from '@chartiful/react-native-vertical-bar-graph';
 import { useRoute } from '@react-navigation/native';
 import  { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const HomeScreen= ()=>{
-    const route = useRoute();
-    return(
+        const route = useRoute();
+        const a=[];
+        const [result,setResult] = useState('');
+        AsyncStorage.getItem('nickname', (err, value) => {
+            setResult(JSON.parse(value))
+            // console.log('되었노 니거'); // User1 출력
+        });
+    
+        return(
         <View style ={styles.screen}>
             <View style ={styles.proContainer}>                                           
                 <View style={styles.todayProg}>
@@ -17,7 +26,7 @@ const HomeScreen= ()=>{
 
                 <View style={styles.threeProg}>
                     <View style={styles.fat}>
-                        <Button title={'dddd'}onPress={()=>{console.log(route.params.a.homeData[0])}}>ddd</Button>
+                        <Button title={'dddd'}onPress={()=>{console.log(result)}}>ddd</Button>
                     </View>
                     <View style={styles.fat}>
                     </View>
@@ -26,14 +35,14 @@ const HomeScreen= ()=>{
                     </View>
                 </View>
             </View>
-            <View style={styles.graphContainer}>
+            {/* <View style={styles.graphContainer}>
                 <VerticalBarGraph
-                        data={(route.params.a.homeData[1])}
-                        labels={(route.params.a.homeData[0])}
+                       data={(result[1])}
+                        labels={(result[0])}
                         width={Dimensions.get('window').width - 30}
                         height={200}
                         barRadius={5}
-                        barWidthPercentage={0.65}
+                        barWidthPercentage={0.65}r
                         barColor='#53ae31'
                         baseConfig={{
                             hasXAxisBackgroundLines: false,
@@ -52,7 +61,7 @@ const HomeScreen= ()=>{
                             width: Dimensions.get('window').width - 10
                             }}
                             />
-            </View>
+            </View>  */}
         </View>
     );                                    
 }  

@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
@@ -20,9 +20,6 @@ const DetailScreen=()=>{
     var homedat = [[],[],[],[],[]];
     const data = new FormData();
     data.append('file', pickedImagePath);
-    const save = 1;
-    console.log(save)
-
     // This function is triggered when the "Select an image" button pressed
     const showImagePicker = async () => {
       // Ask the user for the permission to access the media library 
@@ -36,13 +33,13 @@ const DetailScreen=()=>{
       const result = await ImagePicker.launchImageLibraryAsync();
   
       // Explore the result
-      console.log(result);
+      // console.log(result);
   
       if (!result.canceled) {
-              setFoodCnt(0)
-      setVisible(false)
-        setPickedImagePath(result.assets[0].uri);
-        console.log(result.assets[0].uri);
+          setFoodCnt(0)
+          setVisible(false)
+          setPickedImagePath(result.assets[0].uri);
+          console.log(result.assets[0].uri);
       }
     }
     
@@ -148,8 +145,8 @@ const DetailScreen=()=>{
           responseType: 'json'
         })
         .then((res) => {
-          console.log(res.data)
-          for(let i =0;i<res.data.length;i++){
+          // console.log(res.data)
+          for(let i =0;i<7;i++){
             homedat[0][i]=res.data[i].date.substring(5,)
             homedat[1][i]=res.data[i].kacl
             homedat[2][i]=res.data[i].carbo
@@ -157,7 +154,7 @@ const DetailScreen=()=>{
             homedat[4][i]=res.data[i].province
           }
           sethomeData(homedat);          
-          console.log(homeData);
+          // console.log(homeData);
         })
   
         .catch((err) => {
@@ -167,10 +164,17 @@ const DetailScreen=()=>{
         
     };
      navigateToScreen=()=>{
-      navigation.navigate('Home', 
-      {
-        a:{homeData}   
-      })
+      AsyncStorage.setItem('nickname',JSON.stringify(homeData), () => {
+        console.log('됬다.이기야!!!!!!')
+      });
+      // try {
+      //   const jsonValue = JSON.stringify(homeData)
+      //   await AsyncStorage.setItem('@storage_Key', jsonValue)
+
+      //   console.log(jsonValue)
+      // } catch (e) {
+      //   // saving error
+      // }
     }
     return(
         <View style={styles.screen}>
@@ -198,7 +202,6 @@ const DetailScreen=()=>{
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
         </View>
-
       </View>
     );
     
