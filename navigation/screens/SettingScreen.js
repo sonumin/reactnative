@@ -1,23 +1,33 @@
-import * as React from 'react';
-import {View,StyleSheet,Text,Image} from 'react-native';
+import React, { useState } from 'react';
+import {View,StyleSheet,Text,Image,Button} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ImageModal from 'react-native-image-modal';
+
+
+
 
 const Picture = () => {
+const [result,setResult] = useState('');
+AsyncStorage.getItem('aaaaa', (err, value) => {
+  setResult(JSON.parse(value))
+});
+
   return(
     <View  style={styles.imageContainer}>
         <View  style={styles.imageRow}>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[0]}`}}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[1]}`}}></Image> 
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[2]}`}}></Image>
         </View>
         <View style={styles.imageRow}>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[3]}`}}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[4]}`}}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[5]}`}}></Image>
         </View>
         <View style={styles.imageRow}>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
-            <Image style={styles.imageBox} source={require('/Users/haesu/reactnative/assets/egg-bread.png')}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[6]}`}}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[7]}`}}></Image>
+            <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[8]}`}}></Image>
         </View>
     </View>
   );
@@ -31,7 +41,7 @@ const SettingScreen=()=>{
 
       </View>
       <View style={styles.texta}>
-        <Text>최근 9사진</Text>
+        <Text style={{fontSize:22}}>History</Text>
       </View>
       <Picture/>
     </View>
@@ -40,15 +50,14 @@ const SettingScreen=()=>{
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         backgroundColor: '#F5FCFF',
         flexDirection: 'column',
     },
     user:{
       width:'100%',
-      height:'50%',
-      backgroundColor:'blue'
+      height:'50%'
     },
     imageContainer:{
       width: '100%',
@@ -56,10 +65,11 @@ const styles = StyleSheet.create({
 
     },
     texta:{
-      width:'100%',
+      width:'30%',
       height:'5%',
-      backgroundColor:'orange',
-      textAlign:'center'
+      paddingTop:'2%',
+      marginLeft:'3%',
+      borderRadius:'10',
     },
     imageRow:{
         width: '100%',
@@ -76,7 +86,11 @@ const styles = StyleSheet.create({
       marginTop:'1%',
       marginBottom:'1%',
       marginLeft:'1%',
-      borderRadius:5
+      borderRadius:8
+    },
+    modal:{
+      width:'50%',
+      height:'80%'
     }
 })
 export default SettingScreen;

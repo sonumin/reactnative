@@ -17,7 +17,9 @@ const DetailScreen=()=>{
     const [visible, setVisible] = useState(false);
     let [jData, setjData] = useState('');
     const [homeData,sethomeData] = useState('');
+    const [image,setImage] = useState('');
     var homedat = [[],[],[],[],[]];
+    var images = [];
     const data = new FormData();
     data.append('file', pickedImagePath);
     // This function is triggered when the "Select an image" button pressed
@@ -39,7 +41,7 @@ const DetailScreen=()=>{
           setFoodCnt(0)
           setVisible(false)
           setPickedImagePath(result.assets[0].uri);
-          console.log(result.assets[0].uri);
+          // console.log(result.assets[0].uri);
       }
     }
     
@@ -56,13 +58,14 @@ const DetailScreen=()=>{
   
       const result = await ImagePicker.launchCameraAsync();
       // Explore the result
-      console.log(result);
+      // console.log(result);
   
+    
       if (!result.canceled) {
         setFoodCnt(0)
         setVisible(false)
         setPickedImagePath(result.assets[0].uri);
-        console.log(result.assets[0].uri);
+        // console.log(result.assets[0].uri);
       }
     }
     const actionSheet = async () => {
@@ -153,20 +156,27 @@ const DetailScreen=()=>{
             homedat[3][i]=res.data[i].protein
             homedat[4][i]=res.data[i].province
           }
-          sethomeData(homedat);          
-          // console.log(homeData);
+          for(let i =7;i<16;i++){
+            images[i-7]=res.data[i].image_data    
+          }
+          console.log(images)
+          sethomeData(homedat);        
+          AsyncStorage.setItem('nickname',JSON.stringify(homedat), () => {
+          });
+          AsyncStorage.setItem('aaaaa',JSON.stringify(images), () => {
+          });
+          
         })
   
         .catch((err) => {
           console.log('에러...');
           console.error(err);
-        });
-        
+        }); 
     };
-     navigateToScreen=()=>{
-      AsyncStorage.setItem('nickname',JSON.stringify(homeData), () => {
-        console.log('됬다.이기야!!!!!!')
-      });
+     const navigateToScreen=()=>{
+        navigation.navigate('Home',{
+          a:{homedat} 
+        });
       // try {
       //   const jsonValue = JSON.stringify(homeData)
       //   await AsyncStorage.setItem('@storage_Key', jsonValue)
@@ -180,10 +190,16 @@ const DetailScreen=()=>{
         <View style={styles.screen}>
   
         <View style={styles.imageContainer} >
+          <View style={styles.imageBox}>
           {
             pickedImagePath && <Image source={{ uri: pickedImagePath }}
+            style={styles.image} /> 
+          }    
+          </View>
+          {/* {
+            pickedImagePath && <Image source={{ uri: pickedImagePath }}
             style={styles.imageBox} /> 
-          }
+          } */}
         </View>
         <View style={styles.labelContainer}>
             {visible && <View>
@@ -197,7 +213,7 @@ const DetailScreen=()=>{
           <Pressable style={styles.button} onPress={postImage}>
             <Icon name="send" size={24} color="#ffffff" />
           </Pressable>
-          <Pressable style={styles.button} onPress={()=>{sendText(),navigateToScreen()}}>
+          <Pressable style={styles.button} onPress={()=>{sendText() ,navigateToScreen()}}>
             
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
@@ -266,14 +282,16 @@ const styles = StyleSheet.create({
       height:"90%",
       borderRadius:10,
       resizeMode : 'contain',
-      backgroundColor: 'grey'
+      backgroundColor: '#d7e5fc'
     },
 
-    // image: {
-    //   width: 400,
-    //   height: 300,
-    //   resizeMode: 'cover'
-    // }
+    image: {
+      width:'100%',
+      height:"100%",
+      borderRadius:10,
+      resizeMode : 'contain',
+      backgroundColor: '#d7e5fc'
+    }
   });
   
 
