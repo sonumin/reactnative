@@ -129,9 +129,9 @@ const DetailScreen=()=>{
           result.push(
           <View>
             <TextInput style={styles.textBox}key={i}>
-              <Text style={styles.ddd}>id: {food[i].id}</Text>
-              <Text style={styles.ddd}>       name: {food[i].name}</Text>
-              <Text style={styles.ddd}>            양: {food[i].amount}</Text>
+              <Text style={{}}>id: {food[i].id}</Text>
+              <Text style={{}}>       name: {food[i].name}</Text>
+              <Text style={{}}>            양: {food[i].amount}</Text>
               </TextInput>
           </View>)
         }
@@ -191,6 +191,7 @@ const DetailScreen=()=>{
   
         <View style={styles.imageContainer} >
           <View style={styles.imageBox}>
+
           {
             pickedImagePath && <Image source={{ uri: pickedImagePath }}
             style={styles.image} /> 
@@ -230,7 +231,8 @@ const styles = StyleSheet.create({
       paddingHorizontal: 32,
       borderRadius: 100,
       elevation: 3,
-      backgroundColor: '#000000',
+      backgroundColor: 'black',
+      bored:'2'
   },
   labelContainer: {
       width: '100%',
@@ -245,7 +247,7 @@ const styles = StyleSheet.create({
   },
     screen: {
       flex: 1,
-      backgroundColor: 'white'
+      backgroundColor: 'white',
       // justifyContent: 'center',
       // alignItems: 'center',
     },
@@ -281,6 +283,8 @@ const styles = StyleSheet.create({
       width:'90%',
       height:"90%",
       borderRadius:10,
+      justifyContent:'center',
+      alignItems:'center',
       resizeMode : 'contain',
       backgroundColor: '#d7e5fc'
     },
