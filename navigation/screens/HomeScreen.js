@@ -4,6 +4,9 @@ import { useRoute } from '@react-navigation/native';
 import  { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LineChart,ProgressChart} from "react-native-chart-kit";
+import * as Progress from "react-native-progress";
+
+const {height} = Dimensions.get('window');
 const { width } = Dimensions.get('window');
 
 const HomeScreen= ()=>{
@@ -25,7 +28,22 @@ const HomeScreen= ()=>{
         <View style ={styles.screen}>
             <View style ={styles.proContainer}>                                           
                 <View style ={styles.totalpersentCon}>
-
+                    <Text style={{fontSize:25,width:width*0.95,height:'20%',marginTop:'2%'}}>  Today Kcal</Text>
+                    <View style={{width:width*0.95,height:'80%',borderRadius:'16'}}>
+                        <View style={{width:'100%',height:'60%',borderRadius:'16'}}>
+                            <View style={{width:'100%',height:'30%',marginTop:'8%',alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
+                                <Progress.Bar
+                                    progress={0.5}
+                                    width={width*0.95*0.75}
+                                    height={13}
+                                    color={"rgba(10, 10, 10, 0.6)"}/>
+                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>50%</Text>
+                            </View>
+                        </View>
+                        <View style={{width:width*0.95,height:'40%'}}>
+                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{result[1][0]} / kcal</Text>
+                        </View>
+                    </View>
                 </View>
                 {/* <View style ={styles.threeContainer}>
                 </View> */}
@@ -79,7 +97,7 @@ const HomeScreen= ()=>{
                     </View>
                 </View>
                 <View style={styles.view}>
-                    <Text style={{fontSize:25,width:width*0.95,height:'20%'}}>  Today Eat Protein</Text>
+                    <Text style={{fontSize:25,width:width*0.95,height:'20%',marginTop:'3%'}}>  Today Eat Protein</Text>
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
@@ -108,12 +126,12 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[2][0]}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[3][0]}g</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.view}>
-                    <Text style={{fontSize:25,width:width*0.95,height:'20%'}}>  Today Eat Province</Text>
+                    <Text style={{fontSize:25,width:width*0.95,height:'20%',marginTop:'3%'}}>  Today Eat Province</Text>
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
@@ -142,7 +160,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[2][0]}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[4][0]}g</Text>
                         </View>
                     </View>
                 </View>
@@ -249,3 +267,6 @@ const styles = StyleSheet.create({
    });
 
 export default HomeScreen;
+
+
+
