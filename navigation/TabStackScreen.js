@@ -5,6 +5,7 @@ import HomeScreen from "./screens/HomeScreen";
 import DetailScreen from "./screens/DetailScreen";
 import SettingScreen from "./screens/SettingScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SendScreen from "./screens/SendScreen";
 
 
 
@@ -13,9 +14,11 @@ const TabStack = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
 const SettingStack = createStackNavigator();
+const SendStack = createStackNavigator();
 const HomeName = '메인화면';
 const detailName = '사진';
 const SettingName = '내정보';
+const SendName = '설정';
 const HomeStackScreen= ()=>{
     return(
         <HomeStack.Navigator>
@@ -37,7 +40,13 @@ const SettingStackScreen= ()=>{
             <SettingStack.Screen name='Setting' component={SettingScreen}options={{headerShown:false}}/>
         </SettingStack.Navigator>
         );  
-
+    }
+ const SendStackScreen= ()=>{
+    return(
+        <SettingStack.Navigator>
+            <SettingStack.Screen name='Send' component={SendScreen}options={{headerShown:false}}/>
+        </SettingStack.Navigator>
+        );  
     }
 
 
@@ -57,7 +66,10 @@ const SettingStackScreen= ()=>{
                 iconName = focused ? 'camera' : 'camera-outline';
             }else if(rn ==SettingName){
                 iconName = focused ? 'happy' : 'happy-outline';
+            }else if(rn ==SendName){
+                iconName = focused ? 'happy' : 'happy-outline';
             }
+            
 
             return <Ionicons name ={iconName} size = {size} color= {color}/>
         },
@@ -72,6 +84,7 @@ const SettingStackScreen= ()=>{
                 <TabStack.Screen name={HomeName} component = {HomeStackScreen} />
                 <TabStack.Screen name ={detailName} component = {DetailStackScreen} />
                 <TabStack.Screen name ={SettingName} component = {SettingStackScreen}/> 
+                <TabStack.Screen name ={SendName} component = {SendStackScreen}/> 
             </TabStack.Navigator>
         );
     }

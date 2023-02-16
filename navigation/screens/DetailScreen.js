@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {LogBox,ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,TextInput} from 'react-native';
+import {LogBox,ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,TextInput,Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
@@ -35,7 +35,7 @@ const DetailScreen=()=>{
       const result = await ImagePicker.launchImageLibraryAsync();
   
       // Explore the result
-      // console.log(result);
+      // console.log(result);dw
   
       if (!result.canceled) {
           setFoodCnt(0)
@@ -118,6 +118,7 @@ const DetailScreen=()=>{
         })
   
         .catch((err) => {
+          Alert.alert('멍청이가 인식하지 못했어요!')
           console.log('에러...');
           console.error(err);
         });
@@ -232,7 +233,14 @@ const styles = StyleSheet.create({
       borderRadius: 100,
       elevation: 3,
       backgroundColor: 'black',
-      bored:'2'
+      bored:'2',
+      shadowColor: "#000",
+        shadowOffset: {
+          width: 5,
+          height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 6,
   },
   labelContainer: {
       width: '100%',
@@ -278,6 +286,13 @@ const styles = StyleSheet.create({
       padding: 10,
       marginBottom: '2%',
       marginLeft:'10%',
+      shadowColor: "#000",
+        shadowOffset: {
+          width: 5,
+          height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
     },
     imageBox:{
       width:'90%',
@@ -286,7 +301,14 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       resizeMode : 'contain',
-      backgroundColor: '#d7e5fc'
+      backgroundColor: '#ffffff',
+      shadowColor: "#000",
+        shadowOffset: {
+          width: 5,
+          height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
     },
 
     image: {
@@ -294,7 +316,7 @@ const styles = StyleSheet.create({
       height:"100%",
       borderRadius:10,
       resizeMode : 'contain',
-      backgroundColor: '#d7e5fc'
+      backgroundColor: '#ffffff'
     }
   });
   

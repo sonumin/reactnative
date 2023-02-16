@@ -6,14 +6,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LineChart,ProgressChart} from "react-native-chart-kit";
 import * as Progress from "react-native-progress";
 
-const {height} = Dimensions.get('window');
 const { width } = Dimensions.get('window');
-
+const viewcolor = '#ffffff'
+const screencolor = '#ffffff'
 const HomeScreen= ()=>{
         const route = useRoute();
         const [result,setResult] = useState([[0,],[0,],[0,],[0,],[0,]]);
-    
-
+        const viewcolor = '#ffffff'
+        const probarcolor = `rgba(0, 0, 255, 0.66)`
+        const ringcolor =(opacity = 0.9) => `rgba(0, 0, 255, ${opacity})`
         AsyncStorage.getItem('nickname', (err, value) => {
             setResult(JSON.parse(value))
 
@@ -28,19 +29,19 @@ const HomeScreen= ()=>{
         <View style ={styles.screen}>
             <View style ={styles.proContainer}>                                           
                 <View style ={styles.totalpersentCon}>
-                    <Text style={{fontSize:25,width:width*0.95,height:'20%',marginTop:'2%'}}>  Today Kcal</Text>
-                    <View style={{width:width*0.95,height:'80%',borderRadius:'16'}}>
+                    <Text style={{fontSize:25,width:width*0.88,height:'20%',marginTop:'2%',borderBottomWidth:'1'}}> 오늘의 칼로리</Text>
+                    <View style={{width:width*0.88,height:'80%',borderRadius:'16'}}>
                         <View style={{width:'100%',height:'60%',borderRadius:'16'}}>
                             <View style={{width:'100%',height:'30%',marginTop:'8%',alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
                                 <Progress.Bar
                                     progress={0.5}
-                                    width={width*0.95*0.75}
+                                    width={width*0.88*0.75}
                                     height={13}
-                                    color={"rgba(10, 10, 10, 0.6)"}/>
+                                    color={probarcolor}/>
                                     <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>50%</Text>
                             </View>
                         </View>
-                        <View style={{width:width*0.95,height:'40%'}}>
+                        <View style={{width:width*0.88,height:'40%'}}>
                             <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{result[1][0]} / kcal</Text>
                         </View>
                     </View>
@@ -72,13 +73,13 @@ const HomeScreen= ()=>{
                             strokeWidth={16}
                             radius={60}
                             chartConfig={{
-                                backgroundColor: "#d7e5fc",
+                                backgroundColor: viewcolor,
                                 borderRadius:'20',
-                                backgroundGradientFrom: "#d7e5fc",
-                                backgroundGradientTo: "#d7e5fc",
+                                backgroundGradientFrom: viewcolor,
+                                backgroundGradientTo: viewcolor,
                                 decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
+                                color: ringcolor,
+                                labelColor: ringcolor,
                                 style: {
                                     borderRadius: 16
                                 },
@@ -89,6 +90,7 @@ const HomeScreen= ()=>{
                                 }
                             }}
                             hideLegend={false}
+                            style={{borderRadius:16}}
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
@@ -107,15 +109,12 @@ const HomeScreen= ()=>{
                             strokeWidth={16}
                             radius={60}
                             chartConfig={{
-                                backgroundColor: "#d7e5fc",
-                                backgroundGradientFrom: "#d7e5fc",
-                                backgroundGradientTo: "#d7e5fc",
+                                backgroundColor: viewcolor,
+                                backgroundGradientFrom: viewcolor,
+                                backgroundGradientTo: viewcolor,
                                 decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
-                                style: {
-                                    borderRadius: 16
-                                },
+                                color: ringcolor,
+                                labelColor: ringcolor,
                                 propsForDots: {
                                     r: "6",
                                     strokeWidth: "2",
@@ -123,6 +122,7 @@ const HomeScreen= ()=>{
                                 }
                             }}
                             hideLegend={false}
+                            style={{borderRadius:16}}
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
@@ -141,14 +141,14 @@ const HomeScreen= ()=>{
                             strokeWidth={16}
                             radius={60}
                             chartConfig={{
-                                backgroundColor: "#d7e5fc",
-                                backgroundGradientFrom: "#d7e5fc",
-                                backgroundGradientTo: "#d7e5fc",
+                                backgroundColor: viewcolor,
+                                backgroundGradientFrom: viewcolor,
+                                backgroundGradientTo: viewcolor,
                                 decimalPlaces: 2, // optional, defaults to 2dp
-                                color: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
-                                labelColor: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
+                                color:  ringcolor,
+                                labelColor:ringcolor,
                                 style: {
-                                    borderRadius: 16
+                                    borderRadius: 16,
                                 },
                                 propsForDots: {
                                     r: "6",
@@ -157,6 +157,7 @@ const HomeScreen= ()=>{
                                 }
                             }}
                             hideLegend={false}
+                            style={{borderRadius:16}}
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
@@ -167,7 +168,6 @@ const HomeScreen= ()=>{
             </ScrollView>
             </View>
             <View style={styles.graphContainer}>
-        
                    <LineChart
                         data={{
                         labels: result[0],
@@ -179,7 +179,7 @@ const HomeScreen= ()=>{
                         ,
                         legend:['  kcal'],
                         }}
-                        width={Dimensions.get("window").width-20} // from react-native
+                        width={width*0.88} // from react-native
                         height={220}
                         withInnerLines={false}
                         // yAxisLabel="$"
@@ -188,15 +188,15 @@ const HomeScreen= ()=>{
                         yAxisInterval={1} // optional, defaults to 1
                         chartConfig={{
                         paddingTop:30,    
-                        backgroundColor: "#d7e5fc",
-                        backgroundGradientFrom: "#d7e5fc",
-                        backgroundGradientTo: "#d7e5fc",
+                        backgroundColor: viewcolor,
+                        backgroundGradientFrom: viewcolor,
+                        backgroundGradientTo: viewcolor,
                         decimalPlaces: 0, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(10, 10, 10, ${opacity})`,
+                        color: (opacity = 0.2) => `rgba(0, 0, 255, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                        style: {
-                            borderRadius: 16
-                        },
+                        // style: {
+                        //     borderRadius: 16
+                        // },
                         propsForDots: {
                             r: "6",
                             strokeWidth: "2",
@@ -206,7 +206,15 @@ const HomeScreen= ()=>{
                         bezier
                         style={{
                         marginVertical: 8,
-                        borderRadius: 20,
+                        borderRadius: 16,
+                        marginBottom:12,
+                        shadowColor: "#000",
+                        shadowOffset: {
+                          width: 5,
+                          height: 5,
+                        },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 10,
                         }}
                     />
             </View> 
@@ -218,28 +226,34 @@ const styles = StyleSheet.create({
     screen:{
         flex:1, 
         alignItems: 'center',
-        backgroundColor:'white',
+        backgroundColor:screencolor,
     },
     proContainer:{
         width:'100%',
         height:'60%',
-
         alignItems:'center',
 
     },
     totalpersentCon:{
-        width:'95%',
+        width:'88%',
         height: '32%',
-        backgroundColor:'#d7e5fc',
+        backgroundColor:viewcolor,
         borderRadius:'20',
         marginTop:'5%',
         marginright:'2%',
-        marginBottom:'3%'
-    },
+        marginBottom:'3%',
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 3,
+          height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+      },
     threeContainer:{
         width:'95%',
         height: '60%',
-        backgroundColor:'#d7e5fc',
+        backgroundColor:viewcolor,
         borderRadius:'20',
         marginTop:'3%',
         marginBottom:'2%',
@@ -251,18 +265,29 @@ const styles = StyleSheet.create({
         width:'100%',
         height:'40%',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     view: {
         marginTop: 10,
-        backgroundColor: '#d7e5fc',
-        width: width*0.95,
-        marginLeft:width*0.025,
-        marginRight:width*0.025,
+        backgroundColor: viewcolor,
+        width: width*0.88,
+        marginLeft:width*0.06,
+        marginRight:width*0.06,
         height: 240,
-        borderRadius: 10,
+        borderRadius: 16,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 5,
+          height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
         //paddingHorizontal : 30
       },
+      graphview:{
+        width:width-20, // from react-native
+        height:220,
+      }
       
    });
 
@@ -270,3 +295,4 @@ export default HomeScreen;
 
 
 
+// (opacity = 1) => `rgba(10, 10, 10, ${opacity})`
