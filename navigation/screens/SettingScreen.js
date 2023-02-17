@@ -3,21 +3,18 @@ import {View,StyleSheet,Text,Image,Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImageModal from 'react-native-image-modal';
 import { useNavigation } from '@react-navigation/native';
-
+import SendScreen from './SendScreen';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 
 const Picture = () => {
-const navigation = useNavigation();
 const [result,setResult] = useState('');
 AsyncStorage.getItem('aaaaa', (err, value) => {
   setResult(JSON.parse(value))
 });
-const abc =() => {
-  navigation.navigate('Send')
-}
+
   return(
     <View  style={styles.imageContainer}>
-      <Button title='222' onPress={abc()}></Button>
         <View  style={styles.imageRow}>
             <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[0]}`}}></Image>
             <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[1]}`}}></Image> 
@@ -39,10 +36,25 @@ const abc =() => {
 
 
 const SettingScreen=()=>{
+  const navigation= useNavigation();
+  const abc =() => {
+    navigation.navigate("send")
+  }
   return(
     <View style={styles.screen}>
-      <View style={styles.user}>
-
+      <View style={styles.firstContainer}>
+          <View style={styles.userContainer}>
+            {/* <Button title='222' onPress={abc}></Button> */}
+            <View style={styles.profile}>
+              <Image style={styles.userImage}source={require('/Users/haesu/reactnative/assets/egg-bread.png')}/>
+                <Text style={styles.userlable}>안녕하세요 우민님!</Text>
+            </View>
+            <View style={styles.labelContainer}>
+              <Text style={styles.goaltext}>키: 185    몸무게:  65kg</Text>
+              <Text style={styles.goaltext}>목표 칼로리: 2000</Text>
+              <Text style={styles.goaltext}>목표 탄수화물: 200   목표 단백질: 80  목표 지방: 30</Text>
+            </View>
+          </View>
       </View>
       <View style={styles.texta}>
         <Text style={{fontSize:22}}>History</Text>
@@ -59,13 +71,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
     },
-    user:{
+    firstContainer:{
       width:'100%',
-      height:'50%'
+      height:'45%',
+      alignItems:'center',
+      justifyContent:'center'
     },
     imageContainer:{
       width: '100%',
-      height:'45%',
+      height:'50%',
 
     },
     texta:{
@@ -74,6 +88,41 @@ const styles = StyleSheet.create({
       paddingTop:'2%',
       marginLeft:'3%',
       borderRadius:'10',
+    },
+    userContainer:{
+      width:'95%',
+      height:'85%',
+      borderRadius:'16',
+      backgroundColor:'#ffffff',
+      shadowColor: "#000",
+        shadowOffset: {
+          width: 3,
+          height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+    },
+    profile:{
+      width:'100%',
+      height:'50%',
+      flexDirection:'row'
+    },
+    userImage:{
+      marginTop:'10%',
+      marginLeft:'3%',
+      width:'20%',
+      height:'45%',
+    },
+    userlable:{
+      width:'65%',
+      height:'30%',
+      marginTop:'11.5%',
+      marginLeft:'5%',    
+      fontSize:30
+    },
+    labelContainer:{
+      width:'100%',
+      height:'50%',
     },
     imageRow:{
         width: '100%',
@@ -95,6 +144,29 @@ const styles = StyleSheet.create({
     modal:{
       width:'50%',
       height:'80%'
-    }
+    },
+    goaltext:{
+      marginLeft:'5%',
+      marginTop:'1.5%',
+      marginBottom:'1.5%',
+      fontSize:18
+    },
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 100,
+      elevation: 3,
+      backgroundColor: 'black',
+      bored:'2',
+      shadowColor: "#000",
+        shadowOffset: {
+          width: 5,
+          height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 6,
+      }
 })
 export default SettingScreen;

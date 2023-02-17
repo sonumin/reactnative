@@ -14,11 +14,9 @@ const TabStack = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
 const SettingStack = createStackNavigator();
-const SendStack = createStackNavigator();
 const HomeName = '메인화면';
 const detailName = '사진';
 const SettingName = '내정보';
-const SendName = '설정';
 const HomeStackScreen= ()=>{
     return(
         <HomeStack.Navigator>
@@ -30,23 +28,15 @@ const HomeStackScreen= ()=>{
 const DetailStackScreen= ()=>{
     return(
         <DetailStack.Navigator>
-           
             <DetailStack.Screen name='Detail' component={DetailScreen}options={{headerShown:false}} />
         </DetailStack.Navigator>
     );
 };
 const SettingStackScreen= ()=>{
     return(
-        <SettingStack.Navigator initialRouteName="Setting">
+        <SettingStack.Navigator >
             <SettingStack.Screen name='Setting' component={SettingScreen}options={{headerShown:false}}/>
-            
-        </SettingStack.Navigator>
-        );  
-    }
- const SendStackScreen= ()=>{
-    return(
-        <SettingStack.Navigator>
-            <SettingStack.Screen name='Send' component={SendScreen}options={{headerShown:false}}/>
+            <SettingStack.Screen name='send' component={SendScreen}options={{headerShown:false}}/>
         </SettingStack.Navigator>
         );  
     }
