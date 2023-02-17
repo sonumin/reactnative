@@ -175,7 +175,7 @@ const DetailScreen=()=>{
         }); 
     };
      const navigateToScreen=()=>{
-        navigation.navigate('Home',{
+        navigation.navigate('Send',{
           a:{homedat} 
         });
       // try {

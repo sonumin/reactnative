@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import {View,StyleSheet,Text,Image,Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImageModal from 'react-native-image-modal';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 
 const Picture = () => {
+const navigation = useNavigation();
 const [result,setResult] = useState('');
 AsyncStorage.getItem('aaaaa', (err, value) => {
   setResult(JSON.parse(value))
 });
-
+const abc =() => {
+  navigation.navigate('Send')
+}
   return(
     <View  style={styles.imageContainer}>
+      <Button title='222' onPress={abc()}></Button>
         <View  style={styles.imageRow}>
             <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[0]}`}}></Image>
             <Image style={styles.imageBox} onPress={()=>{console.log(result)}} source={{uri:`data:image/jpeg;base64,${result[1]}`}}></Image> 

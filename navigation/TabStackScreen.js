@@ -30,14 +30,16 @@ const HomeStackScreen= ()=>{
 const DetailStackScreen= ()=>{
     return(
         <DetailStack.Navigator>
+           
             <DetailStack.Screen name='Detail' component={DetailScreen}options={{headerShown:false}} />
         </DetailStack.Navigator>
     );
 };
 const SettingStackScreen= ()=>{
     return(
-        <SettingStack.Navigator>
+        <SettingStack.Navigator initialRouteName="Setting">
             <SettingStack.Screen name='Setting' component={SettingScreen}options={{headerShown:false}}/>
+            
         </SettingStack.Navigator>
         );  
     }
@@ -84,7 +86,6 @@ const SettingStackScreen= ()=>{
                 <TabStack.Screen name={HomeName} component = {HomeStackScreen} />
                 <TabStack.Screen name ={detailName} component = {DetailStackScreen} />
                 <TabStack.Screen name ={SettingName} component = {SettingStackScreen}/> 
-                <TabStack.Screen name ={SendName} component = {SendStackScreen}/> 
             </TabStack.Navigator>
         );
     }

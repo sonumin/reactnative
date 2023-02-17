@@ -1,24 +1,39 @@
 import * as React from 'react';
 import {View,Dimensions,Text,StyleSheet, Button,ScrollView} from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute,useIsFocused } from '@react-navigation/native';
 import  { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LineChart,ProgressChart} from "react-native-chart-kit";
 import * as Progress from "react-native-progress";
+import { useEffect } from 'react';
 
 const { width } = Dimensions.get('window');
 const viewcolor = '#ffffff'
 const screencolor = '#ffffff'
 const HomeScreen= ()=>{
+        const isFocused = useIsFocused();        
+        useEffect(()=>{
+            getdata();
+        },[isFocused])
+ // isFoucesd Define
         const route = useRoute();
-        const [result,setResult] = useState([[0,],[0,],[0,],[0,],[0,]]);
+        const [result,setResult] = useState([[0,],[0,],[0,],[0,],[0,],[0,]]);
+        const [goal,setGoal] = useState([]);
         const viewcolor = '#ffffff'
         const probarcolor = `rgba(0, 0, 255, 0.66)`
         const ringcolor =(opacity = 0.9) => `rgba(0, 0, 255, ${opacity})`
-        AsyncStorage.getItem('nickname', (err, value) => {
-            setResult(JSON.parse(value))
+        const getdata= async()=>{
 
-        });
+            AsyncStorage.getItem('profile', (err, value) => {
+                setGoal(JSON.parse(value))
+            }); 
+            AsyncStorage.getItem('nickname', (err, value) => {
+                setResult(JSON.parse(value))
+            })
+        }
+       
+    
+    
         // if(route.params.a != undefined){
         //     setResult(route.params.a)
         // }
@@ -42,7 +57,7 @@ const HomeScreen= ()=>{
                             </View>
                         </View>
                         <View style={{width:width*0.88,height:'40%'}}>
-                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{result[1][0]} / kcal</Text>
+                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{goal[3]} / kcal</Text>
                         </View>
                     </View>
                 </View>

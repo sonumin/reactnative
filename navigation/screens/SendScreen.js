@@ -1,32 +1,96 @@
-import React from 'react'
 import {TextInput, View, Text, StyleSheet, Image, Button, Pressable} from 'react-native'
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 const SendScreen=()=>{
+  const[data,setData] = useState('')
+  const [name,setName]= useState('')
+  const [height,setHeight]= useState('')
+  const [weight,setWeight]= useState('')
+  const [kcal,setKcal]= useState('')
+  const [carbo,setCarbo]= useState('')
+  const [protein,setProtein]= useState('')
+  const [province,setProvince]= useState('')
+  const profile = [name,height,weight,kcal,carbo,protein,province]
+  const navigation = useNavigation();
+  const abc = () =>{
+    setData(profile);
+    navigation.navigate('Home',{
+      c:{profile} })
+    AsyncStorage.setItem('profile',JSON.stringify(profile), () => {
+    });
+  }
   return (
     <View style={styles.screen}>
       <View style={styles.Container}>
         <View style={styles.textBox_Container}>
-            <Text style={styles.textCon}>이름 :</Text><TextInput style={styles.textBox}></TextInput>
+            <Text style={styles.textCon}>이름 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setName(val)
+              }}
+            />
         </View>
         <View style={styles.textBox_Container}>
-            <Text style={styles.textCon}>키 :</Text><TextInput style={styles.textBox}></TextInput>
+            <Text style={styles.textCon}>키 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setHeight(val)
+              }}
+            />
         </View>
         <View style={styles.textBox_Container}>
-            <Text style={styles.textCon}>몸무게 :</Text><TextInput style={styles.textBox}></TextInput>
+            <Text style={styles.textCon}>몸무게 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setWeight(val)
+              }}
+            />
         </View>
         <View style={styles.textBox_Container}>
-            <Text style={styles.textCon}>칼로리 :</Text><TextInput style={styles.textBox}></TextInput>
+            <Text style={styles.textCon}>칼로리 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setKcal(val)
+              }}
+            />
         </View>
         <View style={styles.textBox_Container}>
-            <Text style={styles.textCon}>단백질 :</Text><TextInput style={styles.textBox}></TextInput>
+            <Text style={styles.textCon}>탄수화물 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setCarbo(val)
+              }}
+            />
         </View>
         <View style={styles.textBox_Container}>
-            <Text style={styles.textCon}>지방 :</Text><TextInput style={styles.textBox}></TextInput>
+            <Text style={styles.textCon}>단백질 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setProtein(val)
+              }}
+            />
+        </View>
+        <View style={styles.textBox_Container}>
+            <Text style={styles.textCon}>지방 :</Text>
+            <TextInput style={styles.textBox}
+              placeholder='이름을 적으시오'
+              onChangeText={val=>{
+                setProvince(val)
+              }}
+            />
         </View>
          
       </View>
       <View style={styles.buttonContainer}>
-          <Pressable style={styles.button}>
+          <Pressable style={styles.button} onPress ={()=>{abc()}}>
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
       </View>
