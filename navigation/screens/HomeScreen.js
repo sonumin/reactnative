@@ -1,24 +1,26 @@
 import * as React from 'react';
 import {View,Dimensions,Text,StyleSheet, Button,ScrollView} from 'react-native';
 import { useRoute,useIsFocused } from '@react-navigation/native';
-import  { useState } from 'react';
+import  { useState,useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LineChart,ProgressChart} from "react-native-chart-kit";
 import * as Progress from "react-native-progress";
-import { useEffect } from 'react';
+
 
 const { width } = Dimensions.get('window');
 const viewcolor = '#ffffff'
 const screencolor = '#ffffff'
 const HomeScreen= ()=>{
-        const isFocused = useIsFocused();        
+        const isFocused = useIsFocused();
+        const persent = [];        
         useEffect(()=>{
             getdata();
+
         },[isFocused])
  // isFoucesd Define
         const route = useRoute();
         const [result,setResult] = useState([[0,],[0,],[0,],[0,],[0,],[0,]]);
-        const [goal,setGoal] = useState([]);
+        const [goal,setGoal] = useState([0,]);
         const viewcolor = '#ffffff'
         const probarcolor = `rgba(0, 0, 255, 0.66)`
         const ringcolor =(opacity = 0.9) => `rgba(0, 0, 255, ${opacity})`
@@ -31,8 +33,9 @@ const HomeScreen= ()=>{
                 setResult(JSON.parse(value))
             })
         }
-       
-    
+        for(let i=0;i<4;i++){
+            persent[i] = result[i+1][0]/goal[i+3] 
+        }
     
         // if(route.params.a != undefined){
         //     setResult(route.params.a)
@@ -49,20 +52,20 @@ const HomeScreen= ()=>{
                         <View style={{width:'100%',height:'60%',borderRadius:'16'}}>
                             <View style={{width:'100%',height:'30%',marginTop:'8%',alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
                                 <Progress.Bar
-                                    progress={0.5}
+                                    progress={persent[0]}
                                     width={width*0.88*0.75}
                                     height={13}
                                     color={probarcolor}/>
-                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>50%</Text>
+                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>{goal[3]}</Text>
                             </View>
                         </View>
                         <View style={{width:width*0.88,height:'40%'}}>
-                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{goal[3]} / kcal</Text>
+                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}> / kcal</Text>
+                            <Button onPress={console.log(goal[3])}>ddddd</Button>
                         </View>
                     </View>
                 </View>
-                {/* <View style ={styles.threeContainer}>
-                </View> */}
+               
              <ScrollView 
                 // ref={(scrollView) => { this.scrollView = scrollView; }}
                 
@@ -82,7 +85,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[0.5]}
+                            data={[persent[1]]}
                             width={width*0.95*0.6}
                             height={180}
                             strokeWidth={16}
@@ -118,7 +121,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[0.5]}
+                            data={[persent[2]]}
                             width={width*0.95*0.6}
                             height={180}
                             strokeWidth={16}
@@ -150,7 +153,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[0.5]}
+                            data={[persent[3]]}
                             width={width*0.95*0.6}
                             height={180}
                             strokeWidth={16}
@@ -253,7 +256,7 @@ const styles = StyleSheet.create({
         width:'88%',
         height: '32%',
         backgroundColor:viewcolor,
-        borderRadius:'20',
+        borderRadius:20,
         marginTop:'5%',
         marginright:'2%',
         marginBottom:'3%',
@@ -265,16 +268,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 10,
       },
-    threeContainer:{
-        width:'95%',
-        height: '60%',
-        backgroundColor:viewcolor,
-        borderRadius:'20',
-        marginTop:'3%',
-        marginBottom:'2%',
-        marginRight:'3%',
-        marginLeft:'3%'
-    },
+
     
     graphContainer:{
         width:'100%',
@@ -307,7 +301,3 @@ const styles = StyleSheet.create({
    });
 
 export default HomeScreen;
-
-
-
-// (opacity = 1) => `rgba(10, 10, 10, ${opacity})`

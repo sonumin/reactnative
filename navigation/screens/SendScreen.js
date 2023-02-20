@@ -1,4 +1,4 @@
-import {TextInput, View, Text, StyleSheet, Image, Button, Pressable} from 'react-native'
+import {TextInput, View, Text, StyleSheet, Image, Button, Pressable,Alert} from 'react-native'
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,10 +16,11 @@ const SendScreen=()=>{
   const navigation = useNavigation();
   const abc = () =>{
     setData(profile);
-    navigation.navigate('Home',{
+    navigation.navigate('Setting',{
       c:{profile} })
     AsyncStorage.setItem('profile',JSON.stringify(profile), () => {
     });
+    Alert.alert('수정이 완료되었습니다.')
   }
   return (
     <View style={styles.screen}>

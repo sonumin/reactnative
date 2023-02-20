@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ImageWithProgressBar from 'react-native-image-with-progress-bar';
 
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
@@ -17,7 +18,6 @@ const DetailScreen=()=>{
     const [visible, setVisible] = useState(false);
     let [jData, setjData] = useState('');
     const [homeData,sethomeData] = useState('');
-    const [image,setImage] = useState('');
     var homedat = [[],[],[],[],[]];
     var images = [];
     const data = new FormData();
@@ -124,17 +124,32 @@ const DetailScreen=()=>{
         });
     };
     const showFoodList = () =>{
+
       const result = [];
       if(visible){
         for (let i = 0; i < foodCnt; i++){
+          const a = food[i].id
+          const b = food[i].name
+          const c = food[i].amount
           result.push(
-          <View>
-            <TextInput style={styles.textBox}key={i}>
-              <Text style={{}}>id: {food[i].id}</Text>
-              <Text style={{}}>       name: {food[i].name}</Text>
-              <Text style={{}}>            양: {food[i].amount}</Text>
-              </TextInput>
-          </View>)
+            <View style={styles.textBox}>
+            {/* <TextInput style={styles.textBox}key={i}> */}
+              <Text style={styles.textInput} onPress={navigateToScreen}>id: {a}</Text>
+              <Text style={styles.textInput2}>name: {b}</Text>
+              <Text style={styles.textInput3}>양: {c}</Text>
+              {/* </TextInput> */}
+                {/* <TextInput style={styles.textInput} value={'{}'}
+                onChangeText={val=>{
+                  
+                }} key={i}/>
+                <TextInput style={styles.textInput2} value={b}
+                onChangeText={val=>{
+                  
+                }}/><TextInput style={styles.textInput3} value={c}
+                onChangeText={val=>{
+                  
+                }}/> */}
+            </View>)
         }
       }
       return result
@@ -175,7 +190,7 @@ const DetailScreen=()=>{
         }); 
     };
      const navigateToScreen=()=>{
-        navigation.navigate('Send',{
+        navigation.navigate('Home',{
           a:{homedat} 
         });
       // try {
@@ -204,7 +219,7 @@ const DetailScreen=()=>{
           } */}
         </View>
         <View style={styles.labelContainer}>
-            {visible && <View>
+            {visible && <View style={styles.labelContainer}>
             {showFoodList()}
           </View>}
         </View>
@@ -245,6 +260,7 @@ const styles = StyleSheet.create({
   labelContainer: {
       width: '100%',
       height:"35%",
+      alignItems:'center',
   },
   text: {
     fontSize: 16,
@@ -280,19 +296,13 @@ const styles = StyleSheet.create({
     },
     textBox:{
       borderColor: "gray",
-      width: "80%",
+      width: "90%",
+      height:'30%',
       borderWidth: 1,
       borderRadius: 10,
-      padding: 10,
-      marginBottom: '2%',
-      marginLeft:'10%',
-      shadowColor: "#000",
-        shadowOffset: {
-          width: 5,
-          height: 5,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 10,
+      marginTop:'5%',
+      flexDirection:'row',
+      alignItems:'center'
     },
     imageBox:{
       width:'90%',
@@ -317,6 +327,19 @@ const styles = StyleSheet.create({
       borderRadius:10,
       resizeMode : 'contain',
       backgroundColor: '#ffffff'
+    },
+    textInput:{
+      marginLeft:'5%',
+      width:'25%',
+      paddingLeft:'3%'
+    },
+    textInput2:{
+      width:'45%',
+      paddingLeft:'3%'
+    },
+    textInput3:{
+      width:'20%',
+      paddingLeft:'3%'
     }
   });
   

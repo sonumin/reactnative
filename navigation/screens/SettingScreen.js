@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import {View,StyleSheet,Text,Image,Button} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {View,StyleSheet,Text,Image, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ImageModal from 'react-native-image-modal';
 import { useNavigation } from '@react-navigation/native';
-import SendScreen from './SendScreen';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-
+import {useIsFocused } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Picture = () => {
 const [result,setResult] = useState('');
@@ -36,6 +35,16 @@ AsyncStorage.getItem('aaaaa', (err, value) => {
 
 
 const SettingScreen=()=>{
+  const [goal,setGoal] = useState([0,0,0,0,0,0]);
+  const getProfile = () => {
+    AsyncStorage.getItem('profile', (err, value) => {
+      setGoal(JSON.parse(value))
+  }); 
+  }
+  const isFocused = useIsFocused();            
+  useEffect(()=>{
+              getProfile();
+          },[isFocused])
   const navigation= useNavigation();
   const abc =() => {
     navigation.navigate("send")
@@ -47,12 +56,18 @@ const SettingScreen=()=>{
             {/* <Button title='222' onPress={abc}></Button> */}
             <View style={styles.profile}>
               <Image style={styles.userImage}source={require('/Users/haesu/reactnative/assets/egg-bread.png')}/>
-                <Text style={styles.userlable}>안녕하세요 우민님!</Text>
+              <View style={styles.profilelabel}>
+                <TouchableOpacity style={styles.button} onPress={abc}>
+                   <Icon name="settings-outline" size={24} color="#000000" />
+                </TouchableOpacity>
+                <Text style={styles.userlable}>안녕하세요 {goal[0]}님!</Text>
+                </View>
+                
             </View>
             <View style={styles.labelContainer}>
-              <Text style={styles.goaltext}>키: 185    몸무게:  65kg</Text>
-              <Text style={styles.goaltext}>목표 칼로리: 2000</Text>
-              <Text style={styles.goaltext}>목표 탄수화물: 200   목표 단백질: 80  목표 지방: 30</Text>
+              <Text style={styles.goaltext}>키: {goal[1]}cm    몸무게:  {goal[2]}kg</Text>
+              <Text style={styles.goaltext}>목표 칼로리: {goal[3]}</Text>
+              <Text style={styles.goaltext}>목표 탄수화물: {goal[4]}   목표 단백질: {goal[5]}  목표 지방: {goal[6]}</Text>
             </View>
           </View>
       </View>
@@ -90,7 +105,7 @@ const styles = StyleSheet.create({
       borderRadius:'10',
     },
     userContainer:{
-      width:'95%',
+      width:'90%',
       height:'85%',
       borderRadius:'16',
       backgroundColor:'#ffffff',
@@ -107,6 +122,11 @@ const styles = StyleSheet.create({
       height:'50%',
       flexDirection:'row'
     },
+    profilelabel:{
+      width:'75%',
+      height:'100%',
+
+    },
     userImage:{
       marginTop:'10%',
       marginLeft:'3%',
@@ -114,11 +134,12 @@ const styles = StyleSheet.create({
       height:'45%',
     },
     userlable:{
-      width:'65%',
+      width:'95%',
       height:'30%',
-      marginTop:'11.5%',
+      marginTop:'5%',
       marginLeft:'5%',    
-      fontSize:30
+      fontSize:30,
+
     },
     labelContainer:{
       width:'100%',
@@ -146,27 +167,17 @@ const styles = StyleSheet.create({
       height:'80%'
     },
     goaltext:{
-      marginLeft:'5%',
+      marginLeft:'4%',
       marginTop:'1.5%',
       marginBottom:'1.5%',
       fontSize:18
     },
     button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 100,
-      elevation: 3,
-      backgroundColor: 'black',
-      bored:'2',
-      shadowColor: "#000",
-        shadowOffset: {
-          width: 5,
-          height: 5,
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 6,
+        marginTop:'5%',
+        marginLeft:'80%',
+        width:'20%',
+        alignItems:'center',
+        justifyContent:'center'
       }
 })
 export default SettingScreen;
