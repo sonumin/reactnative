@@ -36,6 +36,7 @@
     "react-native-animated-scroll-indicators": "^1.0.1",
     "react-native-camera": "^4.2.1",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-dropdown-select-list": "^2.0.4",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-image-modal": "^1.0.16",

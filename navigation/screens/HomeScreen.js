@@ -1,42 +1,43 @@
 import * as React from 'react';
 import {View,Dimensions,Text,StyleSheet, Button,ScrollView} from 'react-native';
-import { useRoute,useIsFocused } from '@react-navigation/native';
+import { useRoute,useIsFocused, useNavigation } from '@react-navigation/native';
 import  { useState,useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LineChart,ProgressChart} from "react-native-chart-kit";
 import * as Progress from "react-native-progress";
 
-
-const { width } = Dimensions.get('window');
-const viewcolor = '#ffffff'
-const screencolor = '#ffffff'
+const { width, height } = Dimensions.get('window');
+const viewcolor = '#ffffff';
+const screencolor = '#ffffff';
 const HomeScreen= ()=>{
         const isFocused = useIsFocused();
-        const persent = [];        
         useEffect(()=>{
             getdata();
-
         },[isFocused])
  // isFoucesd Define
-        const route = useRoute();
+        const navigation = useNavigation();
         const [result,setResult] = useState([[0,],[0,],[0,],[0,],[0,],[0,]]);
         const [goal,setGoal] = useState([0,]);
+        const [persent,setPersent] = useState([0,0,0,0]);
         const viewcolor = '#ffffff'
         const probarcolor = `rgba(0, 0, 255, 0.66)`
         const ringcolor =(opacity = 0.9) => `rgba(0, 0, 255, ${opacity})`
         const getdata= async()=>{
-
+            let p =[];
+            // AsyncStorage.getItem('profile', (err, value) => {
+            //     setGoal(JSON.parse(value))
+            // });
             AsyncStorage.getItem('profile', (err, value) => {
                 setGoal(JSON.parse(value))
-            }); 
+            });  
             AsyncStorage.getItem('nickname', (err, value) => {
                 setResult(JSON.parse(value))
             })
+            for(let i =0;i<4;i++){
+                p[i] = parseInt(result[i+1][0])/parseInt(goal[i+3])
+            }
+            setPersent(p)
         }
-        for(let i=0;i<4;i++){
-            persent[i] = result[i+1][0]/goal[i+3] 
-        }
-    
         // if(route.params.a != undefined){
         //     setResult(route.params.a)
         // }
@@ -48,24 +49,24 @@ const HomeScreen= ()=>{
             <View style ={styles.proContainer}>                                           
                 <View style ={styles.totalpersentCon}>
                     <Text style={{fontSize:25,width:width*0.88,height:'20%',marginTop:'2%',borderBottomWidth:'1'}}> 오늘의 칼로리</Text>
-                    <View style={{width:width*0.88,height:'80%',borderRadius:'16'}}>
-                        <View style={{width:'100%',height:'60%',borderRadius:'16'}}>
+                    <View style={{width:width*0.88,height:'80%',borderRadius:16}}>
+                        <View style={{width:'100%',height:'60%',borderRadius:16}}>
                             <View style={{width:'100%',height:'30%',marginTop:'8%',alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
                                 <Progress.Bar
-                                    progress={persent[0]}
+                                    progress={persent[0]>0?persent[0]:0}
                                     width={width*0.88*0.75}
-                                    height={13}
+                                    height={height*0.015}
                                     color={probarcolor}/>
                                     <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>{goal[3]}</Text>
+                                    
                             </View>
+                            <Button title='dd' onPress={getdata}>ddddd</Button>
                         </View>
                         <View style={{width:width*0.88,height:'40%'}}>
                             <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}> / kcal</Text>
-                            <Button onPress={console.log(goal[3])}>ddddd</Button>
                         </View>
                     </View>
                 </View>
-               
              <ScrollView 
                 // ref={(scrollView) => { this.scrollView = scrollView; }}
                 
@@ -85,11 +86,11 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[1]]}
+                            data={[persent[0]>0?persent[1]:0]}
                             width={width*0.95*0.6}
-                            height={180}
+                            height={height*0.18}
                             strokeWidth={16}
-                            radius={60}
+                            radius={height*0.07}
                             chartConfig={{
                                 backgroundColor: viewcolor,
                                 borderRadius:'20',
@@ -121,11 +122,11 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[2]]}
+                            data={[persent[0]>0?persent[2]:0]}
                             width={width*0.95*0.6}
-                            height={180}
+                            height={height*0.18}
                             strokeWidth={16}
-                            radius={60}
+                            radius={height*0.07}
                             chartConfig={{
                                 backgroundColor: viewcolor,
                                 backgroundGradientFrom: viewcolor,
@@ -153,11 +154,11 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[3]]}
+                            data={[persent[0]>0?persent[3]:0]}
                             width={width*0.95*0.6}
-                            height={180}
+                            height={height*0.18}
                             strokeWidth={16}
-                            radius={60}
+                            radius={height*0.07}
                             chartConfig={{
                                 backgroundColor: viewcolor,
                                 backgroundGradientFrom: viewcolor,
@@ -198,7 +199,7 @@ const HomeScreen= ()=>{
                         legend:['  kcal'],
                         }}
                         width={width*0.88} // from react-native
-                        height={220}
+                        height={height*0.26}
                         withInnerLines={false}
                         // yAxisLabel="$"
                         // yAxisSuffix="k"

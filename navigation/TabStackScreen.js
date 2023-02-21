@@ -6,7 +6,7 @@ import DetailScreen from "./screens/DetailScreen";
 import SettingScreen from "./screens/SettingScreen";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SendScreen from "./screens/SendScreen";
-
+import EditScreen from "./screens/EditScreen";
 
 
 
@@ -29,6 +29,7 @@ const DetailStackScreen= ()=>{
     return(
         <DetailStack.Navigator>
             <DetailStack.Screen name='Detail' component={DetailScreen}options={{headerShown:false}} />
+            <DetailStack.Screen name='edit' component={EditScreen}options={{headerShown:false}} />
         </DetailStack.Navigator>
     );
 };
@@ -57,8 +58,6 @@ const SettingStackScreen= ()=>{
             }else if(rn ==detailName){
                 iconName = focused ? 'camera' : 'camera-outline';
             }else if(rn ==SettingName){
-                iconName = focused ? 'happy' : 'happy-outline';
-            }else if(rn ==SendName){
                 iconName = focused ? 'happy' : 'happy-outline';
             }
             

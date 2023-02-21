@@ -12,7 +12,7 @@ const SendScreen=()=>{
   const [carbo,setCarbo]= useState('')
   const [protein,setProtein]= useState('')
   const [province,setProvince]= useState('')
-  const profile = [name,height,weight,kcal,carbo,protein,province]
+  const profile = [name,height,weight,kcal,carbo,protein,province,0]
   const navigation = useNavigation();
   const abc = () =>{
     setData(profile);
@@ -38,6 +38,7 @@ const SendScreen=()=>{
             <Text style={styles.textCon}>키 :</Text>
             <TextInput style={styles.textBox}
               placeholder='이름을 적으시오'
+              
               onChangeText={val=>{
                 setHeight(val)
               }}
@@ -56,6 +57,7 @@ const SendScreen=()=>{
             <Text style={styles.textCon}>칼로리 :</Text>
             <TextInput style={styles.textBox}
               placeholder='이름을 적으시오'
+              value={number}
               onChangeText={val=>{
                 setKcal(val)
               }}
@@ -65,6 +67,7 @@ const SendScreen=()=>{
             <Text style={styles.textCon}>탄수화물 :</Text>
             <TextInput style={styles.textBox}
               placeholder='이름을 적으시오'
+              value={number}
               onChangeText={val=>{
                 setCarbo(val)
               }}
@@ -74,6 +77,7 @@ const SendScreen=()=>{
             <Text style={styles.textCon}>단백질 :</Text>
             <TextInput style={styles.textBox}
               placeholder='이름을 적으시오'
+              value={number}
               onChangeText={val=>{
                 setProtein(val)
               }}
@@ -84,7 +88,7 @@ const SendScreen=()=>{
             <TextInput style={styles.textBox}
               placeholder='이름을 적으시오'
               onChangeText={val=>{
-                setProvince(val)
+                setProvince(parseInt(val))
               }}
             />
         </View>

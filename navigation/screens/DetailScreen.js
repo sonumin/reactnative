@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {LogBox,ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,TextInput,Alert} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ImageWithProgressBar from 'react-native-image-with-progress-bar';
-
+import { SelectList } from 'react-native-dropdown-select-list'
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
-const DetailScreen=()=>{
+const DetailScreen=({route})=>{
     const navigation = useNavigation();
     const [pickedImagePath, setPickedImagePath] = useState('');
     const [food, setFood] = useState();
     const [foodCnt, setFoodCnt] = useState(0);
     const [visible, setVisible] = useState(false);
     let [jData, setjData] = useState('');
+    var j =[];
     const [homeData,sethomeData] = useState('');
     var homedat = [[],[],[],[],[]];
     var images = [];
-    const data = new FormData();
+    useEffect(()=>{
+      (route.params != undefined ? setFood(route.params.d): 0)
+  },[food])
+    console.log(j)
+    const data = new FormData()
     data.append('file', pickedImagePath);
     // This function is triggered when the "Select an image" button pressed
     const showImagePicker = async () => {
@@ -109,7 +113,8 @@ const DetailScreen=()=>{
               amount: item.amount
             }
           })
-          setjData(res.data)
+          // setjData(res.data)
+          j=(res.data)
           da = da.filter((f) => f.name !== undefined)
           setPickedImagePath(`data:image/jpeg;base64,${res.data[0].image_data}`)
           setFoodCnt(res.data.length - 1)
@@ -132,11 +137,11 @@ const DetailScreen=()=>{
           const b = food[i].name
           const c = food[i].amount
           result.push(
-            <View style={styles.textBox}>
+            <View style={styles.textBox} key={i}>
             {/* <TextInput style={styles.textBox}key={i}> */}
-              <Text style={styles.textInput} onPress={navigateToScreen}>id: {a}</Text>
-              <Text style={styles.textInput2}>name: {b}</Text>
-              <Text style={styles.textInput3}>양: {c}</Text>
+              <Text style={styles.textInput} onPress={abb}>id: {food[i].id}</Text>
+              <Text style={styles.textInput2}>name: { food[i].name}</Text>
+              <Text style={styles.textInput3}>양: {food[i].amount}</Text>
               {/* </TextInput> */}
                 {/* <TextInput style={styles.textInput} value={'{}'}
                 onChangeText={val=>{
@@ -155,7 +160,7 @@ const DetailScreen=()=>{
       return result
     }
     const sendText = async () => {
-
+      console.log(jData[2])
       await axios
         .post('http://121.174.150.180:50001/save',JSON.stringify(jData),{
           headers: {
@@ -202,6 +207,9 @@ const DetailScreen=()=>{
       //   // saving error
       // }
     }
+    const abb = () => {
+      navigation.navigate('edit',{c:food})
+    };
     return(
         <View style={styles.screen}>
   
@@ -213,6 +221,7 @@ const DetailScreen=()=>{
             style={styles.image} /> 
           }    
           </View>
+          {/* <Button title = 'dddd'onPress={console.log(route.params.a)}></Button> */}
           {/* {
             pickedImagePath && <Image source={{ uri: pickedImagePath }}
             style={styles.imageBox} /> 
