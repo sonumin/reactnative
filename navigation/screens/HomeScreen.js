@@ -17,7 +17,7 @@ const HomeScreen= ()=>{
  // isFoucesd Define
         const navigation = useNavigation();
         const [result,setResult] = useState([[0,],[0,],[0,],[0,],[0,],[0,]]);
-        const [goal,setGoal] = useState([0,]);
+        const [goal,setGoal] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0]);
         const [persent,setPersent] = useState([0,0,0,0]);
         const viewcolor = '#ffffff'
         const probarcolor = `rgba(0, 0, 255, 0.66)`
@@ -57,13 +57,13 @@ const HomeScreen= ()=>{
                                     width={width*0.88*0.75}
                                     height={height*0.015}
                                     color={probarcolor}/>
-                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>{goal[3]}</Text>
+                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>{persent[0]>0?goal[3]:0}</Text>
                                     
                             </View>
-                            <Button title='dd' onPress={getdata}>ddddd</Button>
+                            {/* <Button title='dd' onPress={getdata}>ddddd</Button> */}
                         </View>
                         <View style={{width:width*0.88,height:'40%'}}>
-                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}> / kcal</Text>
+                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{persent[0]>0?result[1][0]:0} / kcal</Text>
                         </View>
                     </View>
                 </View>
@@ -113,7 +113,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[2][0]}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[0]>0?result[2][0]:0}g</Text>
                         </View>
                     </View>
                 </View>
@@ -145,7 +145,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[3][0]}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[0]>0?result[3][0]:0}g</Text>
                         </View>
                     </View>
                 </View>
@@ -180,7 +180,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{result[4][0]}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[0]>0?result[4][0]:0}g</Text>
                         </View>
                     </View>
                 </View>

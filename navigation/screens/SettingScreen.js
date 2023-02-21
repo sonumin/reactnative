@@ -7,7 +7,7 @@ import {useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Picture = () => {
-const [result,setResult] = useState('');
+const [result,setResult] = useState(['','','','','','','','','']);
 AsyncStorage.getItem('aaaaa', (err, value) => {
   setResult(JSON.parse(value))
 });
