@@ -3,13 +3,14 @@ import {LogBox,ActionSheetIOS, View, Text, StyleSheet, Image, Button,Pressable,T
 import * as ImagePicker from 'expo-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SelectList } from 'react-native-dropdown-select-list'
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 const DetailScreen=({route})=>{
+    const IsFocoused = useIsFocused();
     const navigation = useNavigation();
     const [pickedImagePath, setPickedImagePath] = useState('');
     const [food, setFood] = useState();
@@ -22,8 +23,9 @@ const DetailScreen=({route})=>{
     var images = [];
     useEffect(()=>{
       (route.params != undefined ? setFood(route.params.d): 0)
-  },[food])
-    console.log(j)
+      for(let i = 1;i<foodCnt;i++){
+      jData[i] != undefined?(jData[i].name = food[i-1].name): 0;
+}},[IsFocoused])
     const data = new FormData()
     data.append('file', pickedImagePath);
     // This function is triggered when the "Select an image" button pressed
@@ -114,7 +116,7 @@ const DetailScreen=({route})=>{
             }
           })
           // setjData(res.data)
-          j=(res.data)
+          setjData(res.data)
           da = da.filter((f) => f.name !== undefined)
           setPickedImagePath(`data:image/jpeg;base64,${res.data[0].image_data}`)
           setFoodCnt(res.data.length - 1)

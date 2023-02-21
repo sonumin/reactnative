@@ -29,10 +29,10 @@ const EditScreen = () =>{
     return (
         <View>
              <MultipleSelectList 
-                setSelected={(val) => setSelected(val)} 
+                setSelected={(val) => setSelected(val)}   //avvv[1].name =selected[1]
                 data={data} 
                 save="value"
-                onSelect={() =>avvv[0].name =selected[0]} 
+                onSelect={() =>avvv[1].name =selected[1]} 
                 label="Categories"
                 boxStyles={{marginTop:'5%'}}
             />
