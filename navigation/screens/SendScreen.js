@@ -5,13 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 const SendScreen=()=>{
   const[data,setData] = useState('')
-  const [name,setName]= useState('')
-  const [height,setHeight]= useState('')
-  const [weight,setWeight]= useState('')
-  const [kcal,setKcal]= useState('')
-  const [carbo,setCarbo]= useState('')
-  const [protein,setProtein]= useState('')
-  const [province,setProvince]= useState('')
+  const [name,setName]= useState(name)
+  const [height,setHeight]= useState(height)
+  const [weight,setWeight]= useState(weight)
+  const [kcal,setKcal]= useState(kcal)
+  const [carbo,setCarbo]= useState(carbo)
+  const [protein,setProtein]= useState(protein)
+  const [province,setProvince]= useState(province)
   const profile = [name,height,weight,kcal,carbo,protein,province,0]
   const navigation = useNavigation();
   const abc = () =>{
@@ -37,7 +37,7 @@ const SendScreen=()=>{
         <View style={styles.textBox_Container}>
             <Text style={styles.textCon}>키 :</Text>
             <TextInput style={styles.textBox}
-              placeholder='이름을 적으시오'
+              placeholder='키를 적으시오'
               
               onChangeText={val=>{
                 setHeight(val)
@@ -47,7 +47,7 @@ const SendScreen=()=>{
         <View style={styles.textBox_Container}>
             <Text style={styles.textCon}>몸무게 :</Text>
             <TextInput style={styles.textBox}
-              placeholder='이름을 적으시오'
+              placeholder='몸무게를 적으시오'
               onChangeText={val=>{
                 setWeight(val)
               }}
@@ -56,8 +56,8 @@ const SendScreen=()=>{
         <View style={styles.textBox_Container}>
             <Text style={styles.textCon}>칼로리 :</Text>
             <TextInput style={styles.textBox}
-              placeholder='이름을 적으시오'
-              value={number}
+              placeholder='칼로리를 적으시오'
+              value={Number}
               onChangeText={val=>{
                 setKcal(val)
               }}
@@ -66,8 +66,8 @@ const SendScreen=()=>{
         <View style={styles.textBox_Container}>
             <Text style={styles.textCon}>탄수화물 :</Text>
             <TextInput style={styles.textBox}
-              placeholder='이름을 적으시오'
-              value={number}
+              placeholder='탄수화물을 적으시오'
+              value={Number}
               onChangeText={val=>{
                 setCarbo(val)
               }}
@@ -76,8 +76,8 @@ const SendScreen=()=>{
         <View style={styles.textBox_Container}>
             <Text style={styles.textCon}>단백질 :</Text>
             <TextInput style={styles.textBox}
-              placeholder='이름을 적으시오'
-              value={number}
+              placeholder='단백질을 적으시오'
+              value={Number}
               onChangeText={val=>{
                 setProtein(val)
               }}
@@ -86,7 +86,7 @@ const SendScreen=()=>{
         <View style={styles.textBox_Container}>
             <Text style={styles.textCon}>지방 :</Text>
             <TextInput style={styles.textBox}
-              placeholder='이름을 적으시오'
+              placeholder='지방을 적으시오'
               onChangeText={val=>{
                 setProvince(parseInt(val))
               }}
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   buttonContainer:{
     width:'100%',
     height:'10%',
+    marginTop:'5%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     width:'100%',
     height:'80%',
     alignItems: 'center',
-    marginTop:'15%'
+    marginTop:'5%'
   },
   textBox:{
     borderWidth:1,
@@ -130,6 +131,7 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   button:{
+    marginTop:'6%',
     alignItems: 'center',
       justifyContent: 'center',
       paddingVertical: 12,
@@ -151,7 +153,6 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     width:'100%',
     height:'15%',
-
     alignItems:'center'
   },
   textCon:{

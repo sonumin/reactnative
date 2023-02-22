@@ -57,7 +57,7 @@ const HomeScreen= ()=>{
                                     width={width*0.88*0.75}
                                     height={height*0.015}
                                     color={probarcolor}/>
-                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>{persent[0]>0?goal[3]:0}</Text>
+                                    <Text style={{fontSize:15,textAlign:'center',marginLeft:'4%'}}>{persent[0]>0?(persent[0]*100).toFixed():0}%</Text>
                                     
                             </View>
                             {/* <Button title='dd' onPress={getdata}>ddddd</Button> */}
@@ -86,7 +86,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[0]>0?persent[1]:0]}
+                            data={[persent[0]<1?persent[1]:1]}
                             width={width*0.95*0.6}
                             height={height*0.18}
                             strokeWidth={16}
@@ -113,7 +113,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[0]>0?result[2][0]:0}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[1]<1?result[2][0]:'완료!'}g</Text>
                         </View>
                     </View>
                 </View>
@@ -122,7 +122,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[0]>0?persent[2]:0]}
+                            data={[persent[0]<1?persent[2]:1]}
                             width={width*0.95*0.6}
                             height={height*0.18}
                             strokeWidth={16}
@@ -145,7 +145,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[0]>0?result[3][0]:0}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[2]<1?result[3][0]:'완료!!'}g</Text>
                         </View>
                     </View>
                 </View>
@@ -154,7 +154,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[0]>0?persent[3]:0]}
+                            data={[persent[3]<1?persent[3]:1]}
                             width={width*0.95*0.6}
                             height={height*0.18}
                             strokeWidth={16}
@@ -180,7 +180,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[0]>0?result[4][0]:0}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[3]<1?result[4][0]:'완료!'}g</Text>
                         </View>
                     </View>
                 </View>
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     
     graphContainer:{
         width:'100%',
-        height:'40%',
+        height:'37%',
         justifyContent:'center',
         alignItems:'center',
     },
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
         width: width*0.88,
         marginLeft:width*0.06,
         marginRight:width*0.06,
-        height: 240,
+        height: height*0.25,
         borderRadius: 16,
         shadowColor: "#000",
         shadowOffset: {
