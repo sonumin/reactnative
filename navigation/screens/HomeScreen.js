@@ -63,7 +63,7 @@ const HomeScreen= ()=>{
                             {/* <Button title='dd' onPress={getdata}>ddddd</Button> */}
                         </View>
                         <View style={{width:width*0.88,height:'40%'}}>
-                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{persent[0]>0?result[1][0]:0} / kcal</Text>
+                            <Text style={{marginTop:'2%',marginLeft:'63%',textAlign:'center',fontSize:20}}>{persent[0]<1?result[1][0]+' /kcal':'완료'}</Text>
                         </View>
                     </View>
                 </View>
@@ -86,7 +86,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[0]<1?persent[1]:1]}
+                            data={[persent[1]<1?persent[1]:1]}
                             width={width*0.95*0.6}
                             height={height*0.18}
                             strokeWidth={16}
@@ -113,7 +113,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[1]<1?result[2][0]:'완료!'}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[1]<1?result[2][0]+' g':'완료!'}</Text>
                         </View>
                     </View>
                 </View>
@@ -122,7 +122,7 @@ const HomeScreen= ()=>{
                     <View style={{width:width*0.95,height:'80%',flexDirection:'row'}}>
                         <View style={{width:'60%',height:'100%'}}>
                         <ProgressChart
-                            data={[persent[0]<1?persent[2]:1]}
+                            data={[persent[2]<1?persent[2]:1]}
                             width={width*0.95*0.6}
                             height={height*0.18}
                             strokeWidth={16}
@@ -145,7 +145,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[2]<1?result[3][0]:'완료!!'}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[2]<1?result[3][0]+' g':'완료!!'}</Text>
                         </View>
                     </View>
                 </View>
@@ -180,7 +180,7 @@ const HomeScreen= ()=>{
                             />
                         </View>
                         <View style={{width:'40%',height:'100%',display:'flex'}}>
-                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[3]<1?result[4][0]:'완료!'}g</Text>
+                            <Text  style={{textAlign:'center',marginTop:'80%',fontSize:20}}>{persent[3]<1?result[4][0]+' g':'완료!'}</Text>
                         </View>
                     </View>
                 </View>

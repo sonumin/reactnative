@@ -319,6 +319,7 @@ const DetailScreen=({route})=>{
             
             <Icon name="save" size={24} color="#ffffff" />
           </Pressable>
+          {/* <Button title='ddd' onPress={setFoodCnt(foodCnt+1)}>zz</Button> */}
         </View>
       </View>
     );
